@@ -14,20 +14,34 @@
     <label>UTM Source</label>
     <input type="text" name="utm_source" id="utm_source">
 
-    <script>
-        // Step 1: Access the IFRAME element
-        var iframe = document.getElementById('utm_medium');
-
-        // Step 2: Get the URL of the IFRAME
-        var iframeURL = iframe.src;
-
-        // Step 3: Extract the URL parameter
-        var urlParams = new URL(iframeURL).searchParams;
-        var paramValue = urlParams.get('utm_medium'); // 'param' is the name of the URL parameter
-
-        // Optional: Set the value in a form field
-        document.getElementById('utm_medium').value = paramValue;
-    </script>
 </body>
+<script>
+    // Function to extract URL parameters
+    function getUrlParameter(name, url) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+        let results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    // Wait for the iframe to load
+    document.getElementById('iframe').onload = function () {
+        const iframe = document.getElementById('iframe');
+        const iframeDoc = iframe.contentWindow.document;
+
+        // Get the utm_medium value from the iframe's src URL
+        const utmMedium = getUrlParameter('utm_medium', iframe.src);
+
+        // If the input field and utm_medium value exist, set the input field value
+        if (utmMedium) {
+            const utmMediumInput = iframeDoc.getElementById('utm_medium');
+            if (utmMediumInput) {
+                utmMediumInput.value = utmMedium;
+            }
+        }
+    };
+</script>
 
 </html>

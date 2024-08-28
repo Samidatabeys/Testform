@@ -19,33 +19,30 @@
             // Get the iframe element
             const iframe = document.getElementById('iframe');
 
-            // Attach the onload event listener to the iframe
-            iframe.onload = function () {
-                const iframeDoc = iframe.contentWindow.document;
+            // Extract the src URL from the iframe
+            const iframeSrc = iframe.src;
+            console.log(iframeSrc);
 
-                // Function to extract URL parameters
-                function getUrlParameter(name, url) {
-                    name = name.replace(/[\[\]]/g, '\\$&');
-                    let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-                    let results = regex.exec(url);
-                    if (!results) return null;
-                    if (!results[2]) return '';
-                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-                }
+            // Function to get URL parameters
+            function getUrlParameter(name, url) {
+                name = name.replace(/[\[\]]/g, '\\$&');
+                let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+                let results = regex.exec(url);
+                if (!results) return null;
+                if (!results[2]) return '';
+                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+            }
 
-                // Get the utm_medium value from the iframe's src URL
-                const utmMedium = getUrlParameter('utm_medium', iframe.src);
+            // Extract utm_medium and utm_source from the iframe src
+            const utmMedium = getUrlParameter('utm_medium', iframeSrc);
+            const utmSource = getUrlParameter('utm_source', iframeSrc);
 
-                // If the input field and utm_medium value exist, set the input field value
-                if (utmMedium) {
-                    const utmMediumInput = iframeDoc.getElementById('utm_medium');
-                    if (utmMediumInput) {
-                        utmMediumInput.value = utmMedium;
-                    }
-                }
-            };
+            // Log the values or use them as needed
+            console.log('UTM Medium:', utmMedium);
+            console.log('UTM Source:', utmSource);
         });
     </script>
+
 </body>
 
 </html>

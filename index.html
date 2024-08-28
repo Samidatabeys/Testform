@@ -16,11 +16,12 @@
 
     <script>
         window.addEventListener('message', function (event) {
-            // Check if the event contains the utm_medium data
             if (event.data.utm_medium) {
                 const utmMediumInput = document.getElementById('utm_medium');
-                if (utmMediumInput) {
-                    utmMediumInput.value = event.data.utm_medium;
+                const utmSourceInput = document.getElementById('utm_source');
+                if (utmMediumInput || utmSourceInput) {
+                    utmMediumInput.value = event.data.utm_medium || "";
+                    utmSourceInput.value = event.data.utm_source || "";
                 }
             }
         });

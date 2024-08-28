@@ -14,34 +14,34 @@
     <label>UTM Source</label>
     <input type="text" name="utm_source" id="utm_source">
 
-</body>
-<script>
-    // Function to extract URL parameters
-    function getUrlParameter(name, url) {
-        name = name.replace(/[\[\]]/g, '\\$&');
-        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-        let results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, ' '));
-    }
-
-    // Wait for the iframe to load
-    document.getElementById('iframe').onload = function () {
-        const iframe = document.getElementById('iframe');
-        const iframeDoc = iframe.contentWindow.document;
-
-        // Get the utm_medium value from the iframe's src URL
-        const utmMedium = getUrlParameter('utm_medium', iframe.src);
-
-        // If the input field and utm_medium value exist, set the input field value
-        if (utmMedium) {
-            const utmMediumInput = iframeDoc.getElementById('utm_medium');
-            if (utmMediumInput) {
-                utmMediumInput.value = utmMedium;
-            }
+    <script>
+        // Function to extract URL parameters
+        function getUrlParameter(name, url) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            let results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
-    };
-</script>
+    
+        // Wait for the iframe to load
+        document.getElementById('iframe').onload = function () {
+            const iframe = document.getElementById('iframe');
+            const iframeDoc = iframe.contentWindow.document;
+    
+            // Get the utm_medium value from the iframe's src URL
+            const utmMedium = getUrlParameter('utm_medium', iframe.src);
+    
+            // If the input field and utm_medium value exist, set the input field value
+            if (utmMedium) {
+                const utmMediumInput = iframeDoc.getElementById('utm_medium');
+                if (utmMediumInput) {
+                    utmMediumInput.value = utmMedium;
+                }
+            }
+        };
+    </script>
+</body>
 
 </html>

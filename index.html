@@ -15,33 +15,17 @@
     <input type="text" name="utm_source" id="utm_source">
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Get the iframe element
-            const iframe = document.getElementById('iframe');
-
-            // Extract the src URL from the iframe
-            const iframeSrc = iframe.src;
-            console.log(iframeSrc);
-
-            // Function to get URL parameters
-            function getUrlParameter(name, url) {
-                name = name.replace(/[\[\]]/g, '\\$&');
-                let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-                let results = regex.exec(url);
-                if (!results) return null;
-                if (!results[2]) return '';
-                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        window.addEventListener('message', function (event) {
+            // Check if the event contains the utm_medium data
+            if (event.data.utm_medium) {
+                const utmMediumInput = document.getElementById('utm_medium');
+                if (utmMediumInput) {
+                    utmMediumInput.value = event.data.utm_medium;
+                }
             }
-
-            // Extract utm_medium and utm_source from the iframe src
-            const utmMedium = getUrlParameter('utm_medium', iframeSrc);
-            const utmSource = getUrlParameter('utm_source', iframeSrc);
-
-            // Log the values or use them as needed
-            console.log('UTM Medium:', utmMedium);
-            console.log('UTM Source:', utmSource);
         });
     </script>
+
 
 </body>
 

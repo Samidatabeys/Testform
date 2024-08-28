@@ -13,6 +13,21 @@
 
     <label>UTM Source</label>
     <input type="text" name="utm_source" id="utm_source">
+
+    <script>
+        // Step 1: Access the IFRAME element
+        var iframe = document.getElementById('utm_medium');
+
+        // Step 2: Get the URL of the IFRAME
+        var iframeURL = iframe.src;
+
+        // Step 3: Extract the URL parameter
+        var urlParams = new URL(iframeURL).searchParams;
+        var paramValue = urlParams.get('utm_medium'); // 'param' is the name of the URL parameter
+
+        // Optional: Set the value in a form field
+        document.getElementById('utm_medium').value = paramValue;
+    </script>
 </body>
 
 </html>
